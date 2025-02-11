@@ -17,6 +17,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import static edu.wpi.first.units.Units.Meter;
 
@@ -56,5 +58,37 @@ public class subSwerve extends SubsystemBase {
     return run(() -> {  
       driveFieldOrientated(chassisSpeeds.get());
     });
+  }
+
+  public SwerveDriveKinematics getKinematics(){
+    return swerveDrive.kinematics;
+  }
+
+  public void resetOdometry(Pose2d initialHolonomicPose){
+    swerveDrive.resetOdometry(initialHolonomicPose);
+  }
+
+  public Pose2d getPose(){
+    return swerveDrive.getPose();
+  }
+
+  public void setChassisSpeeds(ChassisSpeeds chassisSpeeds){
+    swerveDrive.setChassisSpeeds(chassisSpeeds);
+  }
+
+  public void postTrajectory(Trajectory trajectory){
+    swerveDrive.postTrajectory(trajectory);
+  }
+
+  public void zeroGyro(){
+    swerveDrive.zeroGyro();
+  }
+
+  public void setMotorBrake(boolean brake) {
+    swerveDrive.setMotorIdleMode(brake);
+  }
+  
+  public Rotation2d getHeading(){
+    return getPose().getRotation();
   }
 }
